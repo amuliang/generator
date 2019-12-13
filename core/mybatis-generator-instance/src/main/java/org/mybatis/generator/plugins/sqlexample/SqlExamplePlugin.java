@@ -2,6 +2,7 @@ package org.mybatis.generator.plugins.sqlexample;
 
 import org.mybatis.generator.api.*;
 import org.mybatis.generator.api.dom.java.*;
+import org.mybatis.generator.api.dom.kotlin.KotlinFile;
 import org.mybatis.generator.api.dom.xml.*;
 import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 import org.mybatis.generator.config.Context;
@@ -67,6 +68,45 @@ public class SqlExamplePlugin extends PluginAdapter {
     }
 
     @Override
+    public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {
+
+        // 将所有原query参数换成SqlExample
+
+        interfaze.addImportedType(new FullyQualifiedJavaType("org.mybatis.generator.sqlexample.SqlExample"));
+
+        List<Method> methods = interfaze.getMethods();
+
+        for (Method method : methods) {
+            List<Parameter> parameters = method.getParameters();
+            for (int i = 0; i < parameters.size(); i++) {
+                Parameter parameter = parameters.get(i);
+                String testType = parameter.getType().getFullyQualifiedName();
+                String exampleType = introspectedTable.getExampleType();
+
+                if(testType.equals(exampleType)) {
+                    List<String> annotations = parameter.getAnnotations();
+                    parameters.remove(parameter);
+
+                    String sqlExampleType = String.format(
+                            "org.mybatis.generator.sqlexample.SqlExample<%s>",
+                            introspectedTable.getBaseRecordType());
+
+                    Parameter example = new Parameter(
+                            new FullyQualifiedJavaType(sqlExampleType),
+                            "example");
+                    for (String annotation : annotations) {
+                        example.addAnnotation(annotation);
+                    }
+                    parameters.add(i, example);
+                }
+
+            }
+        }
+
+        return true;
+    }
+
+    @Override
     public boolean sqlMapGenerated(GeneratedXmlFile sqlMap, IntrospectedTable introspectedTable) {
         return true;
     }
@@ -82,12 +122,12 @@ public class SqlExamplePlugin extends PluginAdapter {
 
             if(elem.getName() == "sql") {
 
-                if(testElementId(elem, "Example_Where_Clause")) {
+                if(testElement(elem, "id", "Example_Where_Clause")) {
                     XmlElement where = (XmlElement)elem.getElements().get(0);
                     where.getElements().clear();
 
                     XmlElement forEach = new XmlElement("foreach");
-                    forEach.addAttribute(new Attribute("collection", "criteria"));
+                    forEach.addAttribute(new Attribute("collection", "criterionList"));
                     forEach.addAttribute(new Attribute("item", "criterion"));
 
                     forEach.addElement(new TextElement("${criterion.prefix}"));
@@ -101,12 +141,12 @@ public class SqlExamplePlugin extends PluginAdapter {
 
                     where.addElement(forEach);
 
-                }else if(testElementId(elem, "Update_By_Example_Where_Clause")) {
+                }else if(testElement(elem, "id", "Update_By_Example_Where_Clause")) {
                     XmlElement where = (XmlElement)elem.getElements().get(0);
                     where.getElements().clear();
 
                     XmlElement forEach = new XmlElement("foreach");
-                    forEach.addAttribute(new Attribute("collection", "example.criteria"));
+                    forEach.addAttribute(new Attribute("collection", "example.criterionList"));
                     forEach.addAttribute(new Attribute("item", "criterion"));
 
                     forEach.addElement(new TextElement("${criterion.prefix}"));
@@ -121,6 +161,16 @@ public class SqlExamplePlugin extends PluginAdapter {
                     where.addElement(forEach);
                 }
             }
+            else {
+                List<Attribute> attributes = elem.getAttributes();
+                for (int i = 0; i < attributes.size(); i++) {
+                    Attribute attribute = attributes.get(i);
+                    if(attribute.getName().equals("parameterType") && attribute.getValue().equals(introspectedTable.getExampleType())) {
+                        attributes.remove(attribute);
+                        attributes.add(new Attribute("parameterType", "org.mybatis.generator.sqlexample.SqlExample"));
+                    }
+                }
+            }
 
             // 解决生成重复问题，是由于未删除旧元素导致的，我们保证这次生成的元素对于下一次来说是旧元素
             elem.addElement(new TextElement("<!-- ELEMENT FOR GENERATOR MERGE - "
@@ -132,10 +182,10 @@ public class SqlExamplePlugin extends PluginAdapter {
         return true;
     }
 
-    private boolean testElementId(XmlElement element, String value) {
+    private boolean testElement(XmlElement element, String key, String value) {
         List<Attribute> attributes = element.getAttributes();
         for (Attribute attribute : attributes) {
-            if(attribute.getName() == "id" && attribute.getValue() == value) {
+            if(attribute.getName().equals(key) && attribute.getValue().equals(value)) {
                 return true;
             }
         }

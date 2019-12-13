@@ -1,5 +1,6 @@
 package org.mybatis.generator.sqlexample;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class FieldBase<TEntity, TField> {
@@ -50,108 +51,92 @@ public abstract class FieldBase<TEntity, TField> {
         return new Criterion<TEntity>(fieldName + " is not null", null, "");
     }
 
-    public Criteria<TEntity> in(List<TField> list) {
-        Criteria<TEntity> criteria = new Criteria<>();
-
+    public List<Criterion<TEntity>> in(List<TField> list) {
         if(list == null || list.size() == 0) {
-            return criteria;
+            throw new RuntimeException("in操作接收的参数没有值");
         }
 
-        criteria.getCriterionList().add(
-                new Criterion<TEntity>(fieldName + " in(", null, ""));
+        List<Criterion<TEntity>> criterionList = new ArrayList<>();
 
-        criteria.getCriterionList().add(
-                new Criterion<TEntity>("", list.get(0), ""));
+        criterionList.add(new Criterion<TEntity>(fieldName + " in (", list.get(0), ""));
 
         for (int i = 1; i < list.size(); i++) {
-            criteria.getCriterionList().add(
-                    new Criterion<TEntity>(", ", list.get(i), ""));
+            criterionList.add(new Criterion<TEntity>(", ", list.get(i), ""));
         }
 
-        criteria.getCriterionList().add(
-                new Criterion<TEntity>("", null, ")"));
+        criterionList.add(new Criterion<TEntity>("", null, ")"));
 
-        return criteria;
+        return criterionList;
     }
 
-    public Criteria<TEntity> notIn(List<TField> list) {
-        Criteria<TEntity> criteria = new Criteria<>();
-
+    public List<Criterion<TEntity>> notIn(List<TField> list) {
         if(list == null || list.size() == 0) {
-            return criteria;
+            throw new RuntimeException("not in操作接收的参数没有值");
         }
 
-        criteria.getCriterionList().add(
-                new Criterion<TEntity>(fieldName + " not in(", null, ""));
+        List<Criterion<TEntity>> criterionList = new ArrayList<>();
 
-        criteria.getCriterionList().add(
-                new Criterion<TEntity>("", list.get(0), ""));
+        criterionList.add(new Criterion<TEntity>(fieldName + " not in (", list.get(0), ""));
 
         for (int i = 1; i < list.size(); i++) {
-            criteria.getCriterionList().add(
-                    new Criterion<TEntity>(", ", list.get(i), ""));
+            criterionList.add(new Criterion<TEntity>(", ", list.get(i), ""));
         }
 
-        criteria.getCriterionList().add(
-                new Criterion<TEntity>("", null, ")"));
+        criterionList.add(new Criterion<TEntity>("", null, ")"));
 
-        return criteria;
+        return criterionList;
     }
 
-    public Criteria<TEntity> between(TField value1, TField value2) {
-        Criteria<TEntity> criteria = new Criteria<>();
+    public List<Criterion<TEntity>> between(TField value1, TField value2) {
+        List<Criterion<TEntity>> criterionList = new ArrayList<>();
 
-        criteria.getCriterionList().add(
-                new Criterion<TEntity>(fieldName + " between ", value1, ""));
+        criterionList.add(new Criterion<TEntity>(fieldName + " between ", value1, ""));
 
-        criteria.getCriterionList().add(
-                new Criterion<TEntity>(" and ", value2, ""));
+        criterionList.add(new Criterion<TEntity>(" and ", value2, ""));
 
-        return criteria;
+        return criterionList;
     }
 
-    public Criteria<TEntity> notBetween(TField value1, TField value2) {
-        Criteria<TEntity> criteria = new Criteria<>();
+    public List<Criterion<TEntity>> notBetween(TField value1, TField value2) {
+        List<Criterion<TEntity>> criterionList = new ArrayList<>();
 
-        criteria.getCriterionList().add(
-                new Criterion<TEntity>(fieldName + " not between ", value1, ""));
+        criterionList.add(new Criterion<TEntity>(fieldName + " not between ", value1, ""));
 
-        criteria.getCriterionList().add(
-                new Criterion<TEntity>(" and ", value2, ""));
+        criterionList.add(new Criterion<TEntity>(" and ", value2, ""));
 
-        return criteria;
+        return criterionList;
     }
 
-    public Criterion<TEntity> like(TField value) {
+    public Criterion<TEntity> like(String value) {
         return new Criterion<TEntity>(fieldName + " like ", value, "");
     }
 
-    public Criterion<TEntity> notLike(TField value) {
+    public Criterion<TEntity> notLike(String value) {
         return new Criterion<TEntity>(fieldName + " not like ", value, "");
     }
 
     public Criterion<TEntity> equal(FieldBase<TEntity, TField> field) {
-        return new Criterion<TEntity>(fieldName + " = ", null, field.getFieldName());
+        return new Criterion<TEntity>(fieldName + " = " + field.getFieldName(), null, "");
     }
 
     public Criterion<TEntity> notEqual(FieldBase<TEntity, TField> field) {
-        return new Criterion<TEntity>(fieldName + " <> ", null, field.getFieldName());
+        return new Criterion<TEntity>(fieldName + " <> " + field.getFieldName(), null, "");
     }
 
     public Criterion<TEntity> greaterThan(FieldBase<TEntity, TField> field) {
-        return new Criterion<TEntity>(fieldName + " > ", null, field.getFieldName());
+        return new Criterion<TEntity>(fieldName + " > " + field.getFieldName(), null, "");
     }
 
     public Criterion<TEntity> greaterAndEqualThan(FieldBase<TEntity, TField> field) {
-        return new Criterion<TEntity>(fieldName + " >= ", null, field.getFieldName());
+        return new Criterion<TEntity>(fieldName + " >= " + field.getFieldName(), null, "");
     }
 
     public Criterion<TEntity> lessThan(FieldBase<TEntity, TField> field) {
-        return new Criterion<TEntity>(fieldName + " < ", null, field.getFieldName());
+        return new Criterion<TEntity>(fieldName + " < " + field.getFieldName(), null, "");
     }
 
     public Criterion<TEntity> lessAndEqualThan(FieldBase<TEntity, TField> field) {
-        return new Criterion<TEntity>(fieldName + " <= ", null, field.getFieldName());
+        return new Criterion<TEntity>(fieldName + " <= " + field.getFieldName(), null, "");
     }
 
 

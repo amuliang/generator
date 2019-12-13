@@ -2,6 +2,7 @@ package org.mybatis.generator.sqlexample;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public class SqlExample<TEntity> {
 
@@ -11,7 +12,7 @@ public class SqlExample<TEntity> {
 
     protected String fields;
 
-    private List<Criterion<TEntity>> criteria = new ArrayList<>();
+    private List<Criterion<TEntity>> criterionList = new ArrayList<>();
 
 
     public SqlExample() {
@@ -34,8 +35,8 @@ public class SqlExample<TEntity> {
         return fields;
     }
 
-    public List<Criterion<TEntity>> getCriteria() {
-        return criteria;
+    public List<Criterion<TEntity>> getCriterionList() {
+        return criterionList;
     }
 
     public SqlExample<TEntity> setDistinct(boolean value) {
@@ -58,12 +59,22 @@ public class SqlExample<TEntity> {
     }
 
     public SqlExample<TEntity> where(Criteria<TEntity> criteria) {
-        this.criteria = criteria.getCriterionList();
+        this.criterionList = criteria.getCriterionList();
+        return this;
+    }
+
+    public SqlExample<TEntity> where(List<Criterion<TEntity>> list) {
+        where(new Criteria<TEntity>(list));
         return this;
     }
 
     public SqlExample<TEntity> where(Criterion<TEntity> criterion) {
         where(new Criteria<TEntity>(criterion));
+        return this;
+    }
+
+    public SqlExample<TEntity> where(Function<Criteria<TEntity>, Criteria<TEntity>> func) {
+        where(func.apply(new Criteria<TEntity>()));
         return this;
     }
 
@@ -76,5 +87,4 @@ public class SqlExample<TEntity> {
         this.orderByClause = String.join(", ", temp);
         return this;
     }
-
 }
