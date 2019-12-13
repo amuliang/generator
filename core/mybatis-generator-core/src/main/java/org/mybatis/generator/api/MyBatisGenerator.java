@@ -258,6 +258,7 @@ public class MyBatisGenerator {
         }
         callback.generationStarted(totalSteps);
 
+        // 【阿木亮】 开始生成所有文件
         for (Context context : contextsToRun) {
             context.generateFiles(callback, generatedJavaFiles,
                     generatedXmlFiles, generatedKotlinFiles, warnings);

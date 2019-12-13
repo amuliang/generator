@@ -48,7 +48,7 @@ public interface Rules {
     /**
      * Calculates the class that contains all fields. This class is used as the
      * insert statement parameter, as well as the returned value from the select
-     * by primary key method. The actual class depends on how the domain model
+     * by primary key method. The actual class depends on how the pojo model
      * is generated.
      * 
      * @return the type of the class that holds all fields

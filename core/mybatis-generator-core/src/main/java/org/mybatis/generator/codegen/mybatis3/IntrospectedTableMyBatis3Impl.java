@@ -176,6 +176,7 @@ public class IntrospectedTableMyBatis3Impl extends IntrospectedTable {
     public List<GeneratedJavaFile> getGeneratedJavaFiles() {
         List<GeneratedJavaFile> answer = new ArrayList<>();
 
+        // 【阿木亮】 JavaGenerators中包含query，pojo，dao三个生成器
         for (AbstractJavaGenerator javaGenerator : javaGenerators) {
             List<CompilationUnit> compilationUnits = javaGenerator
                     .getCompilationUnits();

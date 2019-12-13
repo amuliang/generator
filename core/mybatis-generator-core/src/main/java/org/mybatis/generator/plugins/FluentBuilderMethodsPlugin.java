@@ -30,7 +30,7 @@ import org.mybatis.generator.api.dom.java.TopLevelClass;
  *
  * <p>Example:
  * 
- * <p>Given the domain class <code>MyDomainClass</code> with setter-method <code>setValue(Object v)</code>
+ * <p>Given the pojo class <code>MyDomainClass</code> with setter-method <code>setValue(Object v)</code>
  * 
  * <p>The plugin will create the additional Method <code>public MyDomainClass withValue(Object v)</code>
  *

@@ -26,16 +26,16 @@
 <body>
 <h1>The &lt;domainObjectRenamingRule&gt; Element</h1>
 <p>MyBatis Generator (MBG) uses the &lt;domainObjectRenamingRule&gt; element
-to rename database tables before calculating the corresponding domain object
+to rename database tables before calculating the corresponding pojo object
 name.  This is useful when all tables have a common prefix that should be
-removed before calculating the domain object name.  For example, suppose some tables
+removed before calculating the pojo object name.  For example, suppose some tables
 as the following:</p>
  <ul>
    <li>SYS_USER</li>
    <li>SYS_ROLE</li>
    <li>SYS_FUNCTION</li>
  </ul>
-<p>It might be annoying to have the generated domain object name
+<p>It might be annoying to have the generated pojo object name
  all containing the SYS prefix.  The prefix can be removed by
  specifying a renaming rule like this:</p>
 
@@ -48,7 +48,7 @@ as the following:</p>
  Java.</p>
 
 <p>If specified, the renaming rule in this element will rename all the names base on the
- domain object name. Suppose a table named SYS_USER :</p>
+ pojo object name. Suppose a table named SYS_USER :</p>
 
 <table border="1" cellspacing="0" cellpadding="5">
   <tr>

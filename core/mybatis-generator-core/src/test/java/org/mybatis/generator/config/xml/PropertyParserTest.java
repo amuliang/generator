@@ -141,7 +141,7 @@ public class PropertyParserTest {
 	@Test
 	public void testNestedValues() {
 		Properties properties = new Properties();
-		properties.put("domain", "foo");
+		properties.put("pojo", "foo");
 		properties.put("project.foo", "pfoo");
 		properties.put("addr", "localhost");
 		properties.put("env.localhost", "dev");
@@ -149,7 +149,7 @@ public class PropertyParserTest {
 
 		MyBatisGeneratorConfigurationParser parser = new MyBatisGeneratorConfigurationParser(properties);
 
-		String result = parser.parsePropertyTokens("${jdbc.${project.${domain}}.${env.${addr}}.url}");
+		String result = parser.parsePropertyTokens("${jdbc.${project.${pojo}}.${env.${addr}}.url}");
 
 		assertThat(result).isEqualTo("mysql");
 	}

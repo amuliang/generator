@@ -26,16 +26,16 @@
 <body>
 <h1>Philosophy and Apology</h1>
 <p>Some philosophical questions might be raised by this tool because the
- tool is more focused on database tables than on the domain model.
+ tool is more focused on database tables than on the pojo model.
  We will take a few paragraphs to talk about this approach.</p>
 
 <p>First of all, this tool does what it does.  We are not making any kind of statement
 about how projects should, or should not, be structured.  In general we are strong proponents
-of rich domain models - but creating a rich domain model is quite a different thing from
+of rich pojo models - but creating a rich pojo model is quite a different thing from
 answering the question of how that model should be persisted.</p>
 
-<p>If your particular design philosophy  is that the domain model drives all decisions, and
- that the database design is subservient to the domain model, then this tool - and MyBatis
+<p>If your particular design philosophy  is that the pojo model drives all decisions, and
+ that the database design is subservient to the pojo model, then this tool - and MyBatis
  itself - may not be the proper fit for your application.  In that case, we would suggest
  taking a serious look at <a target="_blank" href="http://www.hibernate.org">Hibernate</a>
  - it may fit
@@ -43,14 +43,14 @@ answering the question of how that model should be persisted.</p>
 
 <p>But not all projects fit that paradigm.  Very few truly enterprise
  class applications do.  MyBatis can be of great help in projects where
- database design is seen as a co-equal to domain object design.
+ database design is seen as a co-equal to pojo object design.
 MyBatis is not an object relational mapper, and does not attempt to transparently
 persist objects.  So it falls on application developers to write SQL to interact with
 database tables.</p>
 
 <p>In large or enterprise class projects, many of these factors are quite common:</p>
 <ul>
-  <li>Database design is often a separate function (with separate management) from OO domain
+  <li>Database design is often a separate function (with separate management) from OO pojo
       design
   </li>
   <li>Database designers do not have OO tools (like inheritance), so they don't think
@@ -70,7 +70,7 @@ So how should MyBatis be used in this case?</p>
 set of objects that match each individual table.  Generated code is transaction neutral.  This means
 that it is easy to extend the generated code to add transaction attributes if more than one table is involved in
 a transaction.  Or, you could create another DAO (or service method) that more closely matches the
-persistence needs of a domain object
+persistence needs of a pojo object
 and make use of one or more generated objects in a single transaction.</p>
 
 <p>As an example, consider a typical <code>Order</code> object - the typical header/detail problem.

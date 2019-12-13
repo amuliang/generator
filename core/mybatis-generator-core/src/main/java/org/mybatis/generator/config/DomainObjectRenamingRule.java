@@ -21,10 +21,10 @@ import static org.mybatis.generator.internal.util.messages.Messages.getString;
 import java.util.List;
 
 /**
- * This class is used to specify a renaming rule for table's domain object name.
- * If domainObjectName is not configured, we'll build the domain object named
- * based on the tableName or runtimeTableName. And then we use the domain object
- * renaming rule to generate the final domain object name.
+ * This class is used to specify a renaming rule for table's pojo object name.
+ * If domainObjectName is not configured, we'll build the pojo object named
+ * based on the tableName or runtimeTableName. And then we use the pojo object
+ * renaming rule to generate the final pojo object name.
  * 
  * <p>For example, if some tables are named:
  * 
@@ -34,7 +34,7 @@ import java.util.List;
  * <li>SYS_FUNCTIONS</li>
  * </ul>
  * 
- * <p>it might be annoying to have the generated domain name all containing the SYS
+ * <p>it might be annoying to have the generated pojo name all containing the SYS
  * prefix. This class can be used to remove the prefix by specifying
  * 
  * <ul>

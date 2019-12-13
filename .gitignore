@@ -12,6 +12,14 @@
 /core/mybatis-generator-core/.settings
 /core/mybatis-generator-core/target
 
+# /core/mybatis-generator-instance/
+/core/mybatis-generator-instance/src/main/java/com/*
+/core/mybatis-generator-instance/src/main/resources/com/*
+/core/mybatis-generator-instance/.classpath
+/core/mybatis-generator-instance/.project
+/core/mybatis-generator-instance/.settings
+/core/mybatis-generator-instance/target
+
 # /core/mybatis-generator-maven-plugin/
 /core/mybatis-generator-maven-plugin/.classpath
 /core/mybatis-generator-maven-plugin/.project

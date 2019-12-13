@@ -60,7 +60,7 @@ public class FullyQualifiedTable {
      * @param introspectedTableName
      *            the actual table name as returned from DatabaseMetaData
      * @param domainObjectName
-     *            the configured domain object name for this table. If nothing is configured, we'll build the domain
+     *            the configured pojo object name for this table. If nothing is configured, we'll build the pojo
      *            object named based on the tableName or runtimeTableName.
      * @param alias
      *            a configured alias for the table. This alias will be added to the table name in the SQL
@@ -82,9 +82,9 @@ public class FullyQualifiedTable {
      *            if true, then the table identifiers will be delimited at runtime. The delimiter characters are
      *            obtained from the Context.
      * @param domainObjectRenamingRule
-     *            If domainObjectName is not configured, we'll build the domain object named based on the tableName
+     *            If domainObjectName is not configured, we'll build the pojo object named based on the tableName
      *            or runtimeTableName.
-     *            And then we use the domain object renaming rule to generate the final domain object name.
+     *            And then we use the pojo object renaming rule to generate the final pojo object name.
      * @param context
      *            the context
      */
@@ -256,7 +256,7 @@ public class FullyQualifiedTable {
      * 
      * <p>This method is used for determining the sub package for Java client and
      * SQL map (XML) objects.  It ignores any sub-package added to the
-     * domain object name in the table configuration.
+     * pojo object name in the table configuration.
      *
      * @param isSubPackagesEnabled
      *            the is sub packages enabled
@@ -292,7 +292,7 @@ public class FullyQualifiedTable {
      * 
      * <p>This method is used for determining the sub package for Java model objects only.
      * It takes into account the possibility that a sub-package was added to the
-     * domain object name in the table configuration.
+     * pojo object name in the table configuration.
      *
      * @param isSubPackagesEnabled
      *            the is sub packages enabled

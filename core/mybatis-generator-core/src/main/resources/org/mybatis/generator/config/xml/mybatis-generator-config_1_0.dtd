@@ -229,7 +229,7 @@
 
 <!--
   The domainObjectRenamingRule element is used to specify a rule for renaming
-  object domain name before the corresponding domain object name is calculated
+  object pojo name before the corresponding pojo object name is calculated
 -->
 <!ELEMENT domainObjectRenamingRule EMPTY>
 <!ATTLIST domainObjectRenamingRule

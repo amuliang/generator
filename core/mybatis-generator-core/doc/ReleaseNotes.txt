@@ -205,7 +205,7 @@ Version 1.0.0:
 9. Added methodNameCalculator as a property for the DAO generator
 10. Added the ability to specify wildcards for schema and/or tableName in <table>
 11. Added the ability to suppress type warning messages in a JSE 5.0 environment
-12. Added the ability to specify different types of domain models
+12. Added the ability to specify different types of pojo models
 13. Added the "verbose" attribute to the Ant task
 14. Allowed the Ant task to accept a property set
 15. Added a <properties> element to the XML configuration

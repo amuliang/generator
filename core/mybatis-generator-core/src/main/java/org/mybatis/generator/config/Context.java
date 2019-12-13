@@ -439,6 +439,7 @@ public class Context extends PropertyHolder {
             throws InterruptedException {
 
         pluginAggregator = new PluginAggregator();
+        // 【阿木亮】 将所有plugin都加载进来
         for (PluginConfiguration pluginConfiguration : pluginConfigurations) {
             Plugin plugin = ObjectFactory.createPlugin(this,
                     pluginConfiguration);
@@ -456,6 +457,7 @@ public class Context extends PropertyHolder {
 
                 introspectedTable.initialize();
                 introspectedTable.calculateGenerators(warnings, callback);
+                // 【阿木亮】 开始生成java文件，包括query，pojo，dao
                 generatedJavaFiles.addAll(introspectedTable
                         .getGeneratedJavaFiles());
                 generatedXmlFiles.addAll(introspectedTable

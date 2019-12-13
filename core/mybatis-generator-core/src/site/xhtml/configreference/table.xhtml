@@ -123,10 +123,10 @@ identifiers in upper case.  In this instance, you should specify the attribute
     <td>The base name from which generated object names will be generated.
         If not specified, MBG will generate a name automatically based on
         the tableName.  The name (either specified here, or generated
-        automatically) will be used to compute generated domain class names
+        automatically) will be used to compute generated pojo class names
         and DAO class names.
-        <p>You can specify a package fragment in the domain object name.  For example,
-           if you specify <code>foo.Bar</code> then the domain object will be
+        <p>You can specify a package fragment in the pojo object name.  For example,
+           if you specify <code>foo.Bar</code> then the pojo object will be
            <code>Bar</code> and package <code>foo</code> will be appended
            to the target package specified in the generator configurations.</p>
     </td>
@@ -134,7 +134,7 @@ identifiers in upper case.  In this instance, you should specify the attribute
   <tr>
     <td valign="top">mapperName</td>
     <td>The name of the MyBatis3 generated mapper class and XML file.
-        If not specified, the name will be whatever the domain object name is, plus the
+        If not specified, the name will be whatever the pojo object name is, plus the
         word &quot;Mapper&quot;.
         <p>You can specify a package fragment in the mapper name.  For example,
            if you specify <code>foo.BarMapper</code> then the mapper will be
@@ -148,7 +148,7 @@ identifiers in upper case.  In this instance, you should specify the attribute
     <td><i>This attribute is ignored is the target runtime is "MyBatis3DynamicSql" or "MyBatis3Kotlin"</i><br/>
         The name of the MyBatis3 generated SQL provider class (which may or may not be generated
         based on the configuration).
-        If not specified, the name will be whatever the domain object name is, plus the
+        If not specified, the name will be whatever the pojo object name is, plus the
         word &quot;SqlProvider&quot;.
         <p>You can specify a package fragment in the SQL provider name.  For example,
            if you specify <code>foo.BarSqlProvider</code> then the SQL provider will be
@@ -243,10 +243,10 @@ identifiers in upper case.  In this instance, you should specify the attribute
     <td>
       <i>This attribute is ignored is the target runtime is "MyBatis3DynamicSql" or "MyBatis3Kotlin"</i><br/>
       This attribute is used to override the default model type if you desire
-      to do so for this table.  If not specified, MBG will generate domain
+      to do so for this table.  If not specified, MBG will generate pojo
       objects based on the context default model type.
-      The model type defines how MBG will generate domain classes.  With some
-      model types MBG will generate a single domain class for each table,
+      The model type defines how MBG will generate pojo classes.  With some
+      model types MBG will generate a single pojo class for each table,
       with others MBG may generate different classes depending on the structure
       of the table.  The property supports these values:
       <table>
@@ -259,7 +259,7 @@ identifiers in upper case.  In this instance, you should specify the attribute
         </tr>
         <tr>
           <th valign="top">flat</th>
-          <td>This model generates only one domain class for any table.  The class
+          <td>This model generates only one pojo class for any table.  The class
               will hold all fields in the table.</td>
         </tr>
         <tr>
@@ -453,7 +453,7 @@ specified with the <a href="property.html">&lt;property&gt;</a> child element:</
     <td valign="top">useActualColumnNames</td>
     <td>If true, then
         MBG will use column names as returned from the database metadata as the properties
-        of the generated domain objects.  If false (default), MBG will attempt to camel
+        of the generated pojo objects.  If false (default), MBG will attempt to camel
         case the returned names.  In either event, the name can be specified explicitly by the
         &lt;columnOverride&gt; element in which case this property will be ignored for the
         specified column.

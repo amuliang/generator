@@ -58,8 +58,8 @@ databases, or with different generation parameters, in the same run of MyBatis G
       <i>This attribute is ignored if the target runtime is "MyBatis3Simple", "MyBatis3DynamicSql",
        or "MyBatis3Kotlin"</i><br/>
       This attribute is used to set the default for generated model types.
-      The model type defines how MBG will generate domain classes.  With some
-      model types MBG will generate a single domain class for each table,
+      The model type defines how MBG will generate pojo classes.  With some
+      model types MBG will generate a single pojo class for each table,
       with others MBG may generate different classes depending on the structure
       of the table.  The property supports these values:
       <table>
@@ -73,7 +73,7 @@ databases, or with different generation parameters, in the same run of MyBatis G
         </tr>
         <tr>
           <th valign="top">flat</th>
-          <td>This model generates only one domain class for any table.  The class
+          <td>This model generates only one pojo class for any table.  The class
               will hold all fields in the table.</td>
         </tr>
         <tr>
