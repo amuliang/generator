@@ -302,6 +302,7 @@
     <module>mybatis-generator-systests-mybatis3-java8</module>
     <module>mybatis-generator-systests-kotlin</module>
       <module>mybatis-generator-instance</module>
+      <module>mybatis-generator-sqlexample</module>
   </modules>
 
   <profiles>

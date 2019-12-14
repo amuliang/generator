@@ -30,6 +30,10 @@ public class SqlExamplePlugin extends PluginAdapter {
         List<Field> fields = topLevelClass.getFields();
         if(fields.size() == 0) return true;
         Field field = fields.get(0);
+        // 将原来的javaDaoLines取出来
+        List<String> old = new ArrayList<>();
+        old.addAll(field.getJavaDocLines());
+        field.getJavaDocLines().clear();
         // 添加注释
         field.addJavaDocLine("// 静态字段，供SqlExample生成sql语句使用");
         // 添加静态字段
@@ -47,6 +51,10 @@ public class SqlExamplePlugin extends PluginAdapter {
         }
         // 添加空行
         field.addJavaDocLine("\n");
+        // 将原来的javaDaoLine放回去
+        for (String s : old) {
+            field.addJavaDocLine(s);
+        }
 
         return true;
     }
