@@ -1,5 +1,7 @@
 .factorypath
 
+/core/classes/*
+
 # /core/
 /core/.project
 /core/.settings
@@ -11,6 +13,12 @@
 /core/mybatis-generator-core/.project
 /core/mybatis-generator-core/.settings
 /core/mybatis-generator-core/target
+
+# /core/mybatis-generator-sqlexample/
+/core/mybatis-generator-sqlexample/.classpath
+/core/mybatis-generator-sqlexample/.project
+/core/mybatis-generator-sqlexample/.settings
+/core/mybatis-generator-sqlexample/target
 
 # /core/mybatis-generator-instance/
 /core/mybatis-generator-instance/src/main/java/com/*

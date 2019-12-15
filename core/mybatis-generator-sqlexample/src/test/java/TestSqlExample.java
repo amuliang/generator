@@ -28,6 +28,14 @@ public class TestSqlExample {
     }
 
     @Test
+    public void testAddFields() {
+        BrandQuery brandQuery = new BrandQuery();
+        brandQuery.addFields(Brand.ID).addFields(Brand.FIRST_CHAR.as("firstChar"));
+
+        assertEquals("id, first_char as firstChar", brandQuery.getFields());
+    }
+
+    @Test
     public void testWhereWithCriterion() {
         BrandQuery brandQuery = new BrandQuery();
         brandQuery.where(Brand.ID.equal(1L));
@@ -51,15 +59,15 @@ public class TestSqlExample {
 
         List<Criterion<Brand>> criterionList = brandQuery.getCriterionList();
 
-        assertEquals(3, criterionList.size());
+        assertEquals(5, criterionList.size());
 
-        assertEquals("name like ", criterionList.get(0).getPrefix());
-        assertEquals("%a%", criterionList.get(0).getValue());
-
-        assertEquals(" or ", criterionList.get(1).getPrefix());
-
-        assertEquals("first_char = ", criterionList.get(2).getPrefix());
-        assertEquals("A", criterionList.get(2).getValue());
+        assertEquals("(", criterionList.get(0).getPrefix());
+        assertEquals("name like ", criterionList.get(1).getPrefix());
+        assertEquals("%a%", criterionList.get(1).getValue());
+        assertEquals(" or ", criterionList.get(2).getPrefix());
+        assertEquals("first_char = ", criterionList.get(3).getPrefix());
+        assertEquals("A", criterionList.get(3).getValue());
+        assertEquals(")", criterionList.get(4).getPrefix());
     }
 
     @Test
@@ -70,8 +78,36 @@ public class TestSqlExample {
 
         List<Criterion<Brand>> criterionList = brandQuery.getCriterionList();
 
+        assertEquals("(", criterionList.get(0).getPrefix());
+        assertEquals("name is not null", criterionList.get(1).getPrefix());
+        assertEquals(" and ", criterionList.get(2).getPrefix());
+        assertEquals("first_char is not null", criterionList.get(3).getPrefix());
+        assertEquals(")", criterionList.get(4).getPrefix());
+    }
+
+    @Test
+    public void testAndWhere() {
+        SqlExample<Brand> example = new BrandQuery()
+                .andWhere(Brand.NAME.isNotNull())
+                .andWhere(Brand.FIRST_CHAR.isNotNull());
+
+        List<Criterion<Brand>> criterionList = example.getCriterionList();
+
         assertEquals("name is not null", criterionList.get(0).getPrefix());
         assertEquals(" and ", criterionList.get(1).getPrefix());
+        assertEquals("first_char is not null", criterionList.get(2).getPrefix());
+    }
+
+    @Test
+    public void testOrWhere() {
+        SqlExample<Brand> example = new BrandQuery()
+                .andWhere(Brand.NAME.isNotNull())
+                .orWhere(Brand.FIRST_CHAR.isNotNull());
+
+        List<Criterion<Brand>> criterionList = example.getCriterionList();
+
+        assertEquals("name is not null", criterionList.get(0).getPrefix());
+        assertEquals(" or ", criterionList.get(1).getPrefix());
         assertEquals("first_char is not null", criterionList.get(2).getPrefix());
     }
 
@@ -81,6 +117,14 @@ public class TestSqlExample {
         brandQuery.orderBy(Brand.FIRST_CHAR.desc(), Brand.NAME.asc());
 
         assertEquals("first_char desc, name asc", brandQuery.getOrderByClause());
+    }
+
+    @Test
+    public void testAndOrderBy() {
+        BrandQuery brandQuery = new BrandQuery();
+        brandQuery.orderBy(Brand.FIRST_CHAR.desc()).andOrderBy(Brand.NAME.asc(), Brand.ID.desc());
+
+        assertEquals("first_char desc, name asc, id desc", brandQuery.getOrderByClause());
     }
 }
 
